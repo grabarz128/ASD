@@ -1,0 +1,103 @@
+# NIE dokonczone
+
+
+
+class Element:
+    def __init__(self, data, next=None):
+        self.data = data
+        self.next = next
+
+
+class Lista:
+    def __init__(self):
+        self.head = None
+
+    def destroy(self):
+        self.head = None
+
+    def add(self, data):
+        next_elem = Element(data, self.head)
+        self.head = next_elem
+    
+    def is_empty(self):
+        if self.head == None:
+            return True
+        else:
+            return False
+        
+    def lenght(self):
+        licznik = 0 
+        traverse = self.head
+        while traverse:
+            licznik += 1 
+            traverse = traverse.next
+        return licznik
+    
+    def get(self):
+        return self.head.data
+
+
+    def append(self, data):
+        do_dodania = Element(data)
+        if not self.head:       # czy lista jest pusta
+            self.head = do_dodania
+
+        else:
+            traverse = self.head
+            while traverse.next:
+                traverse = traverse.next
+            traverse.next = do_dodania
+
+    def __str__(self):
+        str_to_return = ""
+        traverse = self.head
+        while traverse:
+            str_to_return += "->" + str(traverse.data) + "\n"
+            traverse = traverse.next
+        return str_to_return
+
+    def remove(self):
+        if self.is_empty() != True:
+            self.head = self.head.next
+        
+
+    def remove_end(self):
+        if  self.is_empty() != True:
+            traverse = self.head
+            while traverse.next:
+                przedostatni = traverse
+                traverse = traverse.next
+            przedostatni.next = None
+
+
+
+
+przyklady = [('AGH', 'Kraków', 1919),
+             ('UJ', 'Kraków', 1364),
+             ('PW', 'Warszawa', 1915),
+             ('UW', 'Warszawa', 1915),
+             ('UP', 'Poznań', 1919),
+             ('PG', 'Gdańsk', 1945)]
+
+
+uczelnie = Lista()
+uczelnie.append(przyklady[0])
+uczelnie.append(przyklady[1])
+uczelnie.append(przyklady[2])
+uczelnie.add(przyklady[3])
+uczelnie.add(przyklady[4])
+uczelnie.add(przyklady[5])
+
+print(uczelnie)
+print(uczelnie.lenght())
+uczelnie.remove()
+print(uczelnie.get())
+print()
+uczelnie.remove_end()
+print(uczelnie)
+uczelnie.destroy()
+print(uczelnie.is_empty())
+
+
+uczelnie.remove()
+uczelnie.remove_end()
