@@ -1,11 +1,8 @@
-import polska
-
+import numpy as np
 class Node():
 
     def __init__(self, input) -> None:
-        self.data1 = input[0]
-        self.data2 = input[1]
-        self.key = input[2]
+        self.key = input
     
     def __eq__(self, other):
         return self.key == other.key
@@ -20,11 +17,15 @@ class Edge():
 
 class MatrixGraph():
 
-    def __init__(self):
+    def __init__(self,input=None):
         self.graph = []
         self.node_list = []
         self.node_id = {}
         self.g_size = 0
+        if input is not None:
+            for el in input:
+                self.insertEdge(el[0],el[1],el[2])
+
 
     def isEmpty(self):
         if len(self.graph) == 0:
@@ -54,7 +55,7 @@ class MatrixGraph():
         id2 = self.getVertexIdx(vertex2)
 
         self.graph[id1][id2] = 1 #tu można wstawić wage krawędzi
-        #self.graph[id2][id1] = 1  bo nie bierzemy kierunuków pod uwage
+        self.graph[id2][id1] = 1 # bo nie bierzemy kierunuków pod uwage
         self.g_size +=1
 
     def normalize_dict(self):
@@ -115,6 +116,8 @@ class MatrixGraph():
                 result.append(cols)
         return result
 
+    def getMatrix(self):
+        return self.graph
 
 
 class ListGraph():
@@ -207,29 +210,16 @@ class ListGraph():
             result += str(line) + "\n"
         return result
 
+def ullmann(g,p):
+    M = np.zeros(p.shape[0],g.shape[0])
+    columns = n[]
+    def ullman_rec(row,M)
 
-#test 1
-graph1 = MatrixGraph()
-polska_nodes = {}
-for el in polska.polska:
-    polska_nodes[el[2]] = Node(el)
-for key1, key2 in polska.graf:
-    graph1.insertEdge(polska_nodes[key1], polska_nodes[key2], 1)
+graph_G = [ ('A','B',1), ('B','F',1), ('B','C',1), ('C','D',1), ('C','E',1), ('D','E',1)]
+graph_P = [ ('A','B',1), ('B','C',1), ('A','C',1)]
 
-graph1.deleteVertex(polska_nodes['K'])
-graph1.deleteEdge(polska_nodes['E'], polska_nodes['W'])
+ulmannG = MatrixGraph(graph_G)
+print(ulmannG)
 
-polska.draw_map(graph1.edges())
-
-#test 2
-graph2 = ListGraph()
-
-
-for key1, key2 in polska.graf:
-    graph2.insertEdge(polska_nodes[key1], polska_nodes[key2], 1)
-
-graph2.deleteVertex(polska_nodes['K'])
-graph2.deleteEdge(polska_nodes['E'], polska_nodes['W'])
-graph2.deleteEdge(polska_nodes['W'], polska_nodes['E'])
-
-polska.draw_map(graph2.edges())
+ulmannP = MatrixGraph(graph_P)
+print(ulmannP)
